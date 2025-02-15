@@ -1,0 +1,23 @@
+"paths": {
+    "/api/posts": {
+        "get": {
+            "summary": "List all posts",
+            "responses": {
+                "200": {
+                    "description": "A list of posts."
+                }
+            }
+        },
+        "post": {
+            "summary": "Add a new post",
+            "responses": {
+                "201": {
+                    "description": "Post created successfully."
+                },
+                "400": {
+                    "description": "Invalid request."
+                }
+            }
+        }
+    }
+}
