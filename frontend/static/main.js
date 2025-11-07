@@ -11,28 +11,39 @@ window.onload = function() {
 
 // Function to fetch all the posts from the API and display them on the page
 function loadPosts() {
-    // Retrieve the base URL from the input field and save it to local storage
     var baseUrl = document.getElementById('api-base-url').value;
     localStorage.setItem('apiBaseUrl', baseUrl);
 
-    // Use the Fetch API to send a GET request to the /posts endpoint
     fetch(baseUrl + '/posts')
-        .then(response => response.json())  // Parse the JSON data from the response
-        .then(data => {  // Once the data is ready, we can use it
-            // Clear out the post container first
-            const postContainer = document.getElementById('post-container');
-            postContainer.innerHTML = '';
+        .then(response => response.json())
+        .then(data => displayPosts(data))     // << use shared renderer
+        .catch(error => console.error('Error:', error));
+}
 
-            // For each post in the response, create a new post element and add it to the page
-            data.forEach(post => {
-                const postDiv = document.createElement('div');
-                postDiv.className = 'post';
-                postDiv.innerHTML = `<h2>${post.title}</h2><p>${post.content}</p>
-                <button onclick="deletePost(${post.id})">Delete</button>`;
-                postContainer.appendChild(postDiv);
-            });
-        })
-        .catch(error => console.error('Error:', error));  // If an error occurs, log it to the console
+
+function searchPosts() {
+    var baseUrl = document.getElementById('api-base-url').value;
+    var title = document.getElementById('search-title').value;
+    var content = document.getElementById('search-content').value;
+    fetch(`${baseUrl}/posts?title=${title}&content=${content}`)
+        .then(r => r.json())
+        .then(data => displayPosts(data));
+}
+
+function displayPosts(data) {
+    const postContainer = document.getElementById('post-container');
+    postContainer.innerHTML = '';
+    data.forEach(post => {
+        const postDiv = document.createElement('div');
+        postDiv.className = 'post';
+        postDiv.innerHTML = `
+            <h2>${post.title}</h2>
+            <p>${post.content}</p>
+            <p><strong>Author:</strong> ${post.author || "Unknown"}<br>
+            <strong>Date:</strong> ${post.date || ""}</p>
+            <button onclick="deletePost(${post.id})">Delete</button>`;
+        postContainer.appendChild(postDiv);
+    });
 }
 
 // Function to send a POST request to the API to add a new post
@@ -41,12 +52,19 @@ function addPost() {
     var baseUrl = document.getElementById('api-base-url').value;
     var postTitle = document.getElementById('post-title').value;
     var postContent = document.getElementById('post-content').value;
+    var postAuthor = document.getElementById('post-author').value;
+    var postDate = document.getElementById('post-date').value;
 
     // Use the Fetch API to send a POST request to the /posts endpoint
     fetch(baseUrl + '/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: postTitle, content: postContent })
+        body: JSON.stringify({
+            title: postTitle,
+            content: postContent,
+            author: postAuthor,
+            date: postDate
+        })
     })
     .then(response => response.json())  // Parse the JSON data from the response
     .then(post => {

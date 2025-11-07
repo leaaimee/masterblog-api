@@ -1,0 +1,23 @@
+[
+  {
+    "id": 2,
+    "title": "This is a new first post ",
+    "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+    "author": "Unknown",
+    "date": "2025-11-07"
+  },
+  {
+    "id": 3,
+    "title": "This is the second post ",
+    "content": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    "author": "Unknown",
+    "date": "2025-11-07"
+  },
+  {
+    "id": 4,
+    "title": "This is the third post",
+    "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+    "author": "Lea",
+    "date": "2025-11-07"
+  }
+]
