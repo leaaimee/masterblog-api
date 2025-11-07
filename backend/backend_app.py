@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 SWAGGER_URL = "/api/docs"
 API_URL = "/static/masterblog.json"
@@ -21,6 +21,7 @@ app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 DATA_FILE = Path("posts.json")
 
 def load_posts():
+    """Load posts from the JSON storage file"""
     if not DATA_FILE.exists():
         return []
     with open(DATA_FILE, "r", encoding="utf-8") as f:

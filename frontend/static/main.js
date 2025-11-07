@@ -20,7 +20,7 @@ function loadPosts() {
         .catch(error => console.error('Error:', error));
 }
 
-
+// Function to search posts by title or content using query parameters
 function searchPosts() {
     var baseUrl = document.getElementById('api-base-url').value;
     var title = document.getElementById('search-title').value;
@@ -30,6 +30,7 @@ function searchPosts() {
         .then(data => displayPosts(data));
 }
 
+// Function to render posts dynamically inside the page container
 function displayPosts(data) {
     const postContainer = document.getElementById('post-container');
     postContainer.innerHTML = '';
